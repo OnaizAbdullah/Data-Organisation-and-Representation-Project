@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Weight of People</title>
+		
+	</head>
+	<body>
+	<style>
+	table {
+	font-family: arial, sans-serif;
+    border-collapse: collapse; 
+    position: absolute;
+    top70%;
+	}
+
+	td{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+    }
+	th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+    }
+	
+	button{
+	border:10px solid;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align:center;
+    background-color:#0b57d0;
+    color:white;
+	padding:20px;
+	box-shadow: 0px 5px 0px rgba(0, 255, 255, 0.8);
+	}
+	</style>
+
+	<h1 style="color : #002366;">Welcome to the website</h1>
+	<h2 style="color : #002366;">This page displays different graphs and information on my dataset<h2>
+	<br>
+	<nav>
+	<a href ='/page_1'><button> Form(Poll)</button></a>
+	<a href ='/last_page'><button> Suggestions</button></a>
+	</nav>
+	<br>
+	<p> I did my dataset on obesity. This dataset is from an<br>American website so all the information is based off people living in America. <br> In my dataset, you can find the different BMI, self-esteem and age of different people of different weights.
+	<br> Shown in this website are graphic visulations of some columns from the dataset. </p>
+	<p>Shown below are some ages groups ranked in terms of obeseity <br> and the percentage (%) of people that are obese in that age group <br>In other words, at what age are people most obese accoring <br> to my dataset. </p>
+
+	 <div>
+	 
+	  <br>
+		<table>
+			<thead>
+                <tr>
+                    <th>Age Group</th>
+                    <th>Rank</th>
+                </tr>
+            </thead>       
+
+            <tbody>
+                <tr>
+                    <td>40-60s</td>
+                    <td>Ranked first at 44%</td>
+                </tr>
+                <tr>
+                    <td>60+</td>
+                    <td>Ranked second at 41.5%</td>
+                </tr>
+                <tr>
+                    <td>20-30s</td>
+                    <td>Ranked third at 39.8%</td>
+                </tr>
+            </tbody>
+        </table>
+	</div>
+	
+	<br><br><br><br>
+	<br><br><br><br>
+
+
+	<br>
+	<h2>Line Chart</h2>
+	<div>{{line_chart|safe}}</div>
+	<br>
+	<h2>Bar chart</h2>
+	<div>{{bar_chart|safe}} </div>
+	<br>
+	<h2>Pie chart</h2>
+
+	<label for="diff-pie-charts">Select what pie chart you want to see:</label>
+	<select name="diff-pie-charts" id="diff-pie-charts" onchange="showChart()">
+	<option value="Self-Esteem">Self-Esteem of different</option>
+	<option value="BMI">BMI of people aged 20</option>
+	</select>
+	
+	<div id = "chart">
+	
+	</div>
+	<div id ="self-esteem-chart" style="display: none;">
+	{{pie_chart2|safe}}
+	</div>
+	<div id = "bmi-chart" style="display: none;">
+	{{pie_chart|safe}}
+	</div>
+
+	
+	<script>
+    function showChart() {
+        var selectedValue = document.getElementById("diff-pie-charts").value;
+        var chartDiv = document.getElementById("chart");
+
+        if (selectedValue === "Self-Esteem") {
+           document.getElementById("self-esteem-chart").style.display = "block";
+		   document.getElementById("bmi-chart").style.display = "none";
+			
+        } 
+        else if (selectedValue === "BMI") {
+            document.getElementById("bmi-chart").style.display = "block";
+			document.getElementById("self-esteem-chart").style.display = "none";
+        }
+    }
+	    window.onload = function() {
+        showChart();
+		}
+	
+</script>
+
+</body>
+</html>

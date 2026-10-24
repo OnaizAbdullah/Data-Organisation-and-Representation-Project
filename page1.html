@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Weight of People</title>
+	<style>
+	input{
+	padding:10px;
+	width:250px;
+	}
+	button{
+	border:10px solid;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align:center;
+    background-color:#0b57d0;
+    color:white;
+	padding:15px;
+	box-shadow: 0px 5px 0px rgba(0, 255, 255, 0.8);
+	}
+	table {
+	font-family: arial, sans-serif;
+    border-collapse: collapse; 
+    margin: auto;
+	width: 100%;
+    border: 2px black;
+	}
+	td{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+	position: center;
+	}
+	th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+	position: center;
+	}
+	</style>
+
+	</head>
+	<body>
+	<h1 style="color : #002366;"> Form(Poll)</h1>
+	<a href ='/'><button> Graphs</button></a>
+	<a href ='/last_page'><button>Suggestions</button></a>
+	<h2 style="color : #002366;">Please fill in the form below</h2>
+	<br>
+	
+	<form id = "form-id">
+	<div>
+	<label for="name"><h3 style="color: #007BFF">Enter your name </h3> </label>
+	<input type ="text" id = "name" placeholder= "Enter your name here" required> </input>
+	<!-- Gets the user to enter their name into the form -->
+	</div>
+	
+	<div>
+	<label for="age"> <h3 style="color: #007BFF">Enter your age</h3> </label>
+	<input type ="number" id = "age"  min ="0" max ="160" placeholder= "Enter your age here" required> </input><br>
+	<!-- Gets the user to enter their age with validation -->
+	</div>
+	
+	<div>
+	<label for="dob"> <h3 style="color: #007BFF"> Enter your Date of Birth</h3></label>
+	<input type ="date" id  = "dob" required></input><br>
+	<!-- Gets user  to enter their date of birth -->
+	</div>
+	
+	<div>
+	<label for="mass"> <h3 style="color: #007BFF">Enter your weight (optional)</h3></label> 
+	<input type ="number" id ="mass" placeholder = " Enter weight in kg here" step ="0.1" min="1.0" max="999.0"></input><br>
+	<!-- Prompts to user to enter their weight -->
+	</div>
+	<br>
+	<div>
+	<button type = "button" onclick = "savedata()">Submit</button>
+	<button type = "button" onclick = "cleardata()">Clear data</button>
+	<!-- Once button clicked, the savedata() function will run -->
+	<!-- Click on clear data button to remove the data from the form -->
+	</div>
+	
+	</form>
+	<br>
+	
+	<h2 style="color : #002366; text-align: center;">Information from form displayed</h2>
+	
+	<table id="dataTable">
+
+	<thead>
+		<tr> <!--Creates a row -->
+			<th>Name</th>
+			<th>Age</th>
+			<th>Date of Birth</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+	</table>
+
+	</body>
+</html>
+	<script>
+	function savedata(){
+	const name = document.getElementById('name').value
+	
+	const age = document.getElementById('age').value
+	
+	const dob = document.getElementById('dob').value
+		
+	if (!name || !age ||!dob){
+	alert("Please fill in the required fields.");
+	return;
+	}
+	
+	const allData = {name,age,dob};
+	const suggestions = JSON.parse(localStorage.getItem('suggestions')) || [];
+	
+	suggestions.push(allData);
+	
+	localStorage.setItem('suggestions',JSON.stringify(suggestions));
+	
+	loadTable();
+	}
+	function loadTable(){
+	const tableBody = document.querySelector('#dataTable tbody');
+	tableBody.innerHTML = '';
+	const suggestions = JSON.parse(localStorage.getItem('suggestions')) || [];
+	suggestions.forEach(item => {
+	
+		const row = document.createElement('tr');
+		row.innerHTML =`
+			<td>${item.name}</td>
+			<td>${item.age}</td>
+			<td>${item.dob}</td>`;
+		tableBody.appendChild(row);
+	});
+	}
+	
+
+	function cleardata(){
+		if (confirm("Are you sure you want to delete the data?")){
+		localStorage.removeItem('suggestions');
+		loadTable();
+		}
+	}
+	document.addEventListener('DOMContentLoaded', loadTable);
+	
+	</script>
